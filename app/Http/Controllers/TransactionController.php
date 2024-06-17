@@ -96,20 +96,11 @@ class TransactionController extends Controller
         return response()->json($transactions);
     }
 
-    public function addTransactionHistory(Request $request)
+    public function getAddTransactionHistory()
     {
-        $request->validate([
-            'category' => 'required|string|max:255',
-            'date_update' => 'required|date',
-            'user' => 'required|string|max:255',
-            'add_transaction' => 'required|integer',
-        ]);
-
-        try {
-            $transaction = Transaction::create($request->all());
-            return response()->json($transaction, 201);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to create transaction'], 500);
-        }
+        $transactions = Transaction::where('add_transaction', '>', 0)
+            ->get(['category', 'date_update', 'user', 'add_transaction']);
+        return response()->json($transactions);
     }
+
 }
