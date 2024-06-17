@@ -105,7 +105,11 @@ class TransactionController extends Controller
             'add_transaction' => 'required|integer',
         ]);
 
-        $transaction = Transaction::create($request->all());
-        return response()->json($transaction, 201);
+        try {
+            $transaction = Transaction::create($request->all());
+            return response()->json($transaction, 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to create transaction'], 500);
+        }
     }
 }
