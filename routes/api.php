@@ -12,3 +12,4 @@ Route::get('transactions/total-withdraw-monthly', [TransactionController::class,
 Route::get('transactions/report', [TransactionController::class, 'getReport']);
 Route::get('transactions/monthly-report', [TransactionController::class, 'getMonthlyReport']);
 Route::get('transactions/history', [TransactionController::class, 'getTransactionHistory']);
+Route::post('transactions/addhistory', [TransactionController::class, 'addTransactionHistory']);
