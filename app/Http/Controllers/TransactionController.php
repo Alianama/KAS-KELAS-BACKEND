@@ -95,4 +95,17 @@ class TransactionController extends Controller
         $transactions = Transaction::orderBy('date_update', 'desc')->get();
         return response()->json($transactions);
     }
+
+    public function addTransactionHistory(Request $request)
+    {
+        $request->validate([
+            'category' => 'required|string|max:255',
+            'date_update' => 'required|date',
+            'user' => 'required|string|max:255',
+            'add_transaction' => 'required|integer',
+        ]);
+
+        $transaction = Transaction::create($request->all());
+        return response()->json($transaction, 201);
+    }
 }
